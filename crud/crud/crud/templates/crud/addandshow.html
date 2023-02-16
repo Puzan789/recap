@@ -1,0 +1,45 @@
+{% extends 'crud/base.html' %} {% block content %}
+<div class="row">
+  <div class="col-sm-4">
+    <form action="" method="post">
+      {% csrf_token %} {{fm.as_p}}
+      <input type="submit" value="submit" class="btn btn-success" />
+    </form>
+  </div>
+</div>
+ <div class="col-sm-7 offset-1">
+  <h4 class="text-center alert alert-info">Show Student Information</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">password</th>
+      <th scope="col">Action</th>
+
+    </tr>
+  </thead>
+  
+  {% for st in stud %}
+  <tbody>
+    <tr>
+      <th scope="row">{{st.id}}</th>
+      <td>{{st.name}}</td>
+      <td>{{st.email}}</td>
+      <td>{{st.password}}</td>
+      <td><a href="{% url 'update' st.id %}" class="btn btn-warning"> Edit</a></td>
+      <td>
+      <form action="{% url 'delete' st.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete" class="btn btn-danger">
+      </form>
+      </td>
+    </tr>
+      {% endfor %}
+  </tbody>
+</table>
+ </div>
+
+
+{% endblock content %}
